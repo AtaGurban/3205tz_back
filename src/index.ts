@@ -16,10 +16,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", router);
-app.use(express.static(path.join(__dirname, "build")));
+app.use(express.static(path.join(__dirname, "../build")));
 // Обработчик ошибок
 app.use(ErrorHandlingMiddleware);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
+});
+app.get("*", async (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "build", "index.html"));
 });
