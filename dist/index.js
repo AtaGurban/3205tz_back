@@ -32,6 +32,7 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const index_1 = __importDefault(require("./routes/index"));
 const ErrorHandlingMiddleware_1 = __importDefault(require("./middleware/ErrorHandlingMiddleware"));
+const path_1 = __importDefault(require("path"));
 const app = (0, express_1.default)();
 const port = parseInt(process.env.PORT || "8080", 10);
 app.use((0, cors_1.default)());
@@ -39,6 +40,7 @@ app.use(express_1.default.json());
 // Middleware для обработки данных формы
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use("/api", index_1.default);
+app.use(express_1.default.static(path_1.default.join(__dirname, "build")));
 // Обработчик ошибок
 app.use(ErrorHandlingMiddleware_1.default);
 app.listen(port, () => {
