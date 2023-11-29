@@ -5,6 +5,7 @@ import express, { Express, Request, Response, NextFunction } from "express";
 import cors from "cors";
 import router from "./routes/index";
 import ErrorHandlingMiddleware from "./middleware/ErrorHandlingMiddleware";
+import path from "path";
 
 const app: Express = express();
 const port: number = parseInt(process.env.PORT || "8080", 10);
@@ -15,7 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", router);
-
+app.use(express.static(path.join(__dirname, "build")));
 // Обработчик ошибок
 app.use(ErrorHandlingMiddleware);
 
